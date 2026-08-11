@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Become a Host";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Become a Host</h1>
+            <p class="lead">Start earning by sharing your property with travelers from around the world.</p>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show">
+                    @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">The Process</h5>
+                    <ol>
+                        <li>Create your property listing with photos</li>
+                        <li>Submit your application for approval</li>
+                        <li>Wait for admin review (usually within 48 hours)</li>
+                        <li>Once approved, start accepting bookings!</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Requirements</h5>
+                    <ul>
+                        <li>✓ Complete property information</li>
+                        <li>✓ At least one property photo</li>
+                        <li>✓ Valid pricing details</li>
+                        <li>✓ Verified email address</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ready to Get Started?</h5>
+                    <p>You haven't created any properties yet. Let's create your first listing!</p>
+
+                    <div class="d-grid gap-2">
+                        <a href="@Url.Action("CreateProperty", "Host")" class="btn btn-primary btn-lg">
+                            Create Your First Property
+                        </a>
+                        <a href="@Url.Action("Dashboard", "Guest")" class="btn btn-secondary">
+                            Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

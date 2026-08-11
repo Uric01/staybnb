@@ -1,0 +1,85 @@
+@model AdminAuditLogViewModel
+
+@{
+    ViewData["Title"] = "Activity Logs";
+}
+
+<div class="container-fluid py-5">
+    <h1 class="mb-4">System Activity Logs</h1>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h6 class="card-title mb-3">Filter Activity Logs</h6>
+            <form method="get" asp-action="ActivityLog" class="row g-3">
+                <div class="col-md-3">
+                    <label for="userId" class="form-label">User</label>
+                    <input type="text" class="form-control" id="userId" name="userId" placeholder="User ID or email" value="@Model.FilterUser">
+                </div>
+                <div class="col-md-3">
+                    <label for="actionType" class="form-label">Action Type</label>
+                    <select class="form-control" id="actionType" name="actionType">
+                        <option value="">-- All Actions --</option>
+                        @foreach (var type in Enum.GetValues(typeof(ActivityType)).Cast<ActivityType>())
+                        {
+                            <option value="@((int)type)" selected="@(Model.FilterActionType == type)">@type</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="fromDate" class="form-label">From Date</label>
+                    <input type="date" class="form-control" id="fromDate" name="fromDate" value="@Model.FilterFromDate?.ToString("yyyy-MM-dd")">
+                </div>
+                <div class="col-md-2">
+                    <label for="toDate" class="form-label">To Date</label>
+                    <input type="date" class="form-control" id="toDate" name="toDate" value="@Model.FilterToDate?.ToString("yyyy-MM-dd")">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Activity Logs Table -->
+    @if (Model.ActivityLogs.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>User</th>
+                        <th>Action Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var log in Model.ActivityLogs)
+                    {
+                        <tr>
+                            <td>
+                                <small>@log.Timestamp.ToString("MMM dd, yyyy HH:mm:ss")</small>
+                            </td>
+                            <td>
+                                <strong>@log.UserName</strong><br/>
+                                <small class="text-muted">@log.UserEmail</small>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">@log.ActionType</span>
+                            </td>
+                            <td>@log.Description</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h5>No activity logs found</h5>
+            <p>Try adjusting your filters.</p>
+        </div>
+    }
+</div>

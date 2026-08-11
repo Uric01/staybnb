@@ -1,0 +1,161 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Staybnb
+build_property.RootNamespace = Staybnb
+build_property.ProjectDir = C:\Users\zweli\OneDrive\Documents\Bsc Final Year\Semester 2\Assignments\Assignment 2\Staybnb2\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\zweli\OneDrive\Documents\Bsc Final Year\Semester 2\Assignments\Assignment 2\Staybnb2
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Account/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Admin/ActivityLog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWN0aXZpdHlMb2cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Admin/ApplicationDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXBwbGljYXRpb25EZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Admin/Applications.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXBwbGljYXRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Admin/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Admin/UserManagement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlck1hbmFnZW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Guest/Book.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcQm9vay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Guest/Browse.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcQnJvd3NlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Guest/CheckIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcQ2hlY2tJbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Guest/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Guest/MyBookings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcTXlCb29raW5ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Guest/PropertyDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3Vlc3RcUHJvcGVydHlEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/HostApplication/Apply.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdEFwcGxpY2F0aW9uXEFwcGx5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/HostApplication/MyApplications.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdEFwcGxpY2F0aW9uXE15QXBwbGljYXRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Host/Bookings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdFxCb29raW5ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Host/ConfigureCheckIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdFxDb25maWd1cmVDaGVja0luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Host/CreateProperty.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdFxDcmVhdGVQcm9wZXJ0eS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Host/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdFxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Host/EditProperty.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdFxFZGl0UHJvcGVydHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Host/Properties.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9zdFxQcm9wZXJ0aWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Messaging/Conversation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnaW5nXENvbnZlcnNhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Messaging/Inbox.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnaW5nXEluYm94LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Notification/NotificationCenter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXE5vdGlmaWNhdGlvbkNlbnRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zweli/OneDrive/Documents/Bsc Final Year/Semester 2/Assignments/Assignment 2/Staybnb2/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-rmsnnweq5b

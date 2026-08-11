@@ -1,0 +1,159 @@
+@model AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid py-5">
+    <h1 class="mb-4">Admin Dashboard</h1>
+
+    <!-- Key Stats -->
+    <div class="row mb-5">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="display-4">@Model.TotalUsers</p>
+                    <small class="text-muted">
+                        @Model.TotalHosts Hosts | @Model.TotalGuests Guests | @Model.TotalAdmins Admins
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Applications</h5>
+                    <p class="display-4">@Model.PendingApplications</p>
+                    <small class="text-muted">
+                        @Model.ApprovedApplications approved | @Model.RejectedApplications rejected
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Properties</h5>
+                    <p class="display-4">@Model.TotalProperties</p>
+                    <small class="text-muted">Total listings</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Bookings</h5>
+                    <p class="display-4">@Model.TotalBookings</p>
+                    <small class="text-muted">Total transactions</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mb-4">
+        <a href="@Url.Action("Applications")" class="btn btn-primary btn-lg">
+            <i class="bi bi-clipboard-check"></i> Review Applications
+        </a>
+        <a href="@Url.Action("UserManagement")" class="btn btn-info btn-lg">
+            <i class="bi bi-people"></i> Manage Users
+        </a>
+        <a href="@Url.Action("ActivityLog")" class="btn btn-warning btn-lg">
+            <i class="bi bi-clock-history"></i> Activity Logs
+        </a>
+    </div>
+
+    <div class="row">
+        <!-- Recent Applications -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Recent Applications</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentApplications.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Applicant</th>
+                                        <th>Property</th>
+                                        <th>Status</th>
+                                        <th>Applied</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var app in Model.RecentApplications)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <small>@app.ApplicantName</small><br/>
+                                                <small class="text-muted">@app.ApplicantEmail</small>
+                                            </td>
+                                            <td>
+                                                <small>@app.PropertyTitle</small><br/>
+                                                <small class="text-muted">@app.PropertyCity</small>
+                                            </td>
+                                            <td>
+                                                @if (app.Status == ApplicationStatus.Pending)
+                                                {
+                                                    <span class="badge bg-warning">Pending</span>
+                                                }
+                                                else if (app.Status == ApplicationStatus.Approved)
+                                                {
+                                                    <span class="badge bg-success">Approved</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">Rejected</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <small>@app.AppliedAt.ToString("MMM dd")</small>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-3">No recent applications</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Recent Activity</h5>
+                </div>
+                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                    @if (Model.RecentActivityLogs.Any())
+                    {
+                        @foreach (var log in Model.RecentActivityLogs)
+                        {
+                            <div class="mb-3 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">@log.Timestamp.ToString("MMM dd HH:mm")</small>
+                                    <small class="badge bg-secondary">@log.ActionType</small>
+                                </div>
+                                <p class="mb-1 mt-1"><strong>@log.UserEmail</strong></p>
+                                <p class="mb-0"><small>@log.Description</small></p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-3">No recent activity</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

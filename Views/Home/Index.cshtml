@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Vacation Rentals & Unique Homes";
+}
+
+<div class="container-fluid px-4 pt-2">
+    
+    <form asp-controller="Guest" asp-action="Explore" method="get" class="search-pill mx-auto d-flex align-items-center position-relative mb-4">
+        
+        <div class="search-section flex-grow-1">
+            <div class="small fw-bold">Where</div>
+            <input type="text" name="location" class="form-control search-input text-muted" placeholder="Search destinations">
+        </div>
+        
+        <div class="search-divider"></div>
+        
+        <div class="search-section flex-grow-1">
+            <div class="small fw-bold">Check in</div>
+            <input type="text" class="form-control search-input text-muted" placeholder="Add dates">
+        </div>
+        
+        <div class="search-divider"></div>
+        
+        <div class="search-section flex-grow-1">
+            <div class="small fw-bold">Check out</div>
+            <input type="text" class="form-control search-input text-muted" placeholder="Add dates">
+        </div>
+        
+        <div class="search-divider"></div>
+        
+        <div class="search-section flex-grow-1 d-flex justify-content-between align-items-center pe-2">
+            <div>
+                <div class="small fw-bold">Who</div>
+                <input type="number" name="minGuests" class="form-control search-input text-muted" placeholder="Add guests">
+            </div>
+            <button type="submit" class="search-btn shadow">
+                <i class="bi bi-search fs-5"></i>
+            </button>
+        </div>
+    </form>
+
+    <div class="category-strip d-flex gap-4 overflow-auto py-3 mb-3 border-bottom">
+        <a href="#" class="category-item active text-center pb-2">
+            <i class="bi bi-house-door fs-4"></i><div class="small fw-medium mt-1">Icons</div>
+        </a>
+        <a href="#" class="category-item text-center pb-2">
+            <i class="bi bi-water fs-4"></i><div class="small fw-medium mt-1">Amazing pools</div>
+        </a>
+        <a href="#" class="category-item text-center pb-2">
+            <i class="bi bi-lightning fs-4"></i><div class="small fw-medium mt-1">OMG!</div>
+        </a>
+        <a href="#" class="category-item text-center pb-2">
+            <i class="bi bi-umbrella fs-4"></i><div class="small fw-medium mt-1">Beachfront</div>
+        </a>
+        <a href="#" class="category-item text-center pb-2">
+            <i class="bi bi-tree fs-4"></i><div class="small fw-medium mt-1">Countryside</div>
+        </a>
+        <a href="#" class="category-item text-center pb-2">
+            <i class="bi bi-palette fs-4"></i><div class="small fw-medium mt-1">Design</div>
+        </a>
+        <a href="#" class="category-item text-center pb-2">
+            <i class="bi bi-gem fs-4"></i><div class="small fw-medium mt-1">Luxe</div>
+        </a>
+        <a href="#" class="category-item text-center pb-2">
+            <i class="bi bi-fire fs-4"></i><div class="small fw-medium mt-1">Trending</div>
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mb-5">
+        
+        <div class="col">
+            <div class="card border-0 bg-transparent">
+                <div class="position-relative">
+                    <div class="guest-favorite">Guest favorite</div>
+                    <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?q=80&w=800&auto=format&fit=crop" class="card-img-top property-img" alt="Bali Villa">
+                    <button class="heart-btn"><i class="bi bi-heart-fill stroke-white"></i></button>
+                </div>
+                <div class="card-body px-0 pt-2 pb-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="fw-bold mb-0 text-truncate">Abiansemal, Indonesia</h6>
+                        <span class="small text-dark"><i class="bi bi-star-fill small me-1"></i>4.96</span>
+                    </div>
+                    <p class="text-muted mb-0 small">Stay with Wayan</p>
+                    <p class="text-muted mb-1 small">Feb 10 – 15</p>
+                    <p class="mb-0"><span class="fw-bold">R120</span> <span class="text-dark small">night</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border-0 bg-transparent">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=800&auto=format&fit=crop" class="card-img-top property-img" alt="Cabin">
+                    <button class="heart-btn"><i class="bi bi-heart-fill stroke-white"></i></button>
+                </div>
+                <div class="card-body px-0 pt-2 pb-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="fw-bold mb-0 text-truncate">Chamonix, France</h6>
+                        <span class="small text-dark"><i class="bi bi-star-fill small me-1"></i>4.88</span>
+                    </div>
+                    <p class="text-muted mb-0 small">Stay with Marie</p>
+                    <p class="text-muted mb-1 small">Mar 1 – 6</p>
+                    <p class="mb-0"><span class="fw-bold">R185</span> <span class="text-dark small">night</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card border-0 bg-transparent">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop" class="card-img-top property-img" alt="Modern Home">
+                    <button class="heart-btn"><i class="bi bi-heart-fill stroke-white"></i></button>
+                </div>
+                <div class="card-body px-0 pt-2 pb-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="fw-bold mb-0 text-truncate">Los Angeles, California</h6>
+                        <span class="small text-dark"><i class="bi bi-star-fill small me-1"></i>4.92</span>
+                    </div>
+                    <p class="text-muted mb-0 small">Designed by John Lautner</p>
+                    <p class="text-muted mb-1 small">Apr 12 – 18</p>
+                    <p class="mb-0"><span class="fw-bold">R450</span> <span class="text-dark small">night</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="card border-0 bg-transparent">
+                <div class="position-relative">
+                     <div class="guest-favorite">Guest favorite</div>
+                    <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=800&auto=format&fit=crop" class="card-img-top property-img" alt="Beach House">
+                    <button class="heart-btn"><i class="bi bi-heart-fill stroke-white"></i></button>
+                </div>
+                <div class="card-body px-0 pt-2 pb-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="fw-bold mb-0 text-truncate">Santorini, Greece</h6>
+                        <span class="small text-dark"><i class="bi bi-star-fill small me-1"></i>5.0</span>
+                    </div>
+                    <p class="text-muted mb-0 small">Ocean Views</p>
+                    <p class="text-muted mb-1 small">May 5 – 12</p>
+                    <p class="mb-0"><span class="fw-bold">R310</span> <span class="text-dark small">night</span></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,125 @@
+@model List<BookingListItemViewModel>
+
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">My Bookings</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        @foreach (var booking in Model.OrderByDescending(b => b.CheckInDate))
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            @if (!string.IsNullOrEmpty(booking.PropertyThumbnail))
+                            {
+                                <img src="@booking.PropertyThumbnail" class="img-fluid rounded" alt="@booking.PropertyTitle" style="height: 150px; object-fit: cover; width: 100%;">
+                            }
+                            else
+                            {
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 150px;">
+                                    <i class="bi bi-image" style="font-size: 2rem; color: #ccc;"></i>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5>@booking.PropertyTitle</h5>
+                            <p class="text-muted">@booking.HostName</p>
+
+                            <div class="row text-sm">
+                                <div class="col-6">
+                                    <small><strong>Check-in:</strong></small><br/>
+                                    <small>@booking.CheckInDate.ToString("MMM dd, yyyy")</small>
+                                </div>
+                                <div class="col-6">
+                                    <small><strong>Check-out:</strong></small><br/>
+                                    <small>@booking.CheckOutDate.ToString("MMM dd, yyyy")</small>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <small><strong>Guests:</strong></small><br/>
+                                    <small>@booking.NumberOfGuests</small>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <small><strong>Total:</strong></small><br/>
+                                    <small>R@booking.TotalPrice.ToString("F2")</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 text-end">
+                            <div class="mb-2">
+                                @switch(booking.Status)
+                                {
+                                    case BookingStatus.Pending:
+                                        <span class="badge bg-warning">Pending</span>
+                                        break;
+                                    case BookingStatus.Approved:
+                                        <span class="badge bg-success">Approved</span>
+                                        break;
+                                    case BookingStatus.Rejected:
+                                        <span class="badge bg-danger">Rejected</span>
+                                        break;
+                                    case BookingStatus.CheckedIn:
+                                        <span class="badge bg-info">Checked In</span>
+                                        break;
+                                    case BookingStatus.CheckedOut:
+                                        <span class="badge bg-secondary">Completed</span>
+                                        break;
+                                }
+                            </div>
+
+                            @if (booking.Status == BookingStatus.Approved && booking.CheckInStatus == null)
+                            {
+                                <div class="mb-2">
+                                    <a href="@Url.Action("CheckIn", new { bookingId = booking.Id })" class="btn btn-sm btn-primary">
+                                        Start Check-in
+                                    </a>
+                                </div>
+                            }
+
+                            @if (booking.CheckInStatus == CheckInStatus.InProgress)
+                            {
+                                <div class="mb-2">
+                                    <a href="@Url.Action("CheckIn", new { bookingId = booking.Id })" class="btn btn-sm btn-info">
+                                        Continue Check-in
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/Messaging/Conversation?otherUserId=@booking.HostId" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-chat-dots"></i> Message Host
+            </a>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h5>No bookings yet</h5>
+            <p class="mb-3">Start exploring properties and make your first booking</p>
+            <a href="@Url.Action("Browse")" class="btn btn-primary btn-lg">Browse Properties</a>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>My Bookings</h2>
+        <p>Coming soon - View and manage your bookings!</p>
+    </div>
+</div>

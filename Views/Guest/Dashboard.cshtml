@@ -1,0 +1,109 @@
+@model GuestDashboardViewModel
+
+@{
+    ViewData["Title"] = "Guest Dashboard";
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">Welcome Back!</h1>
+
+    <!-- Stats Section -->
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Bookings</h5>
+                    <p class="display-4">@Model.TotalBookings</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Upcoming Trips</h5>
+                    <p class="display-4">@Model.UpcomingBookings</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Completed Stays</h5>
+                    <p class="display-4">@Model.CompletedBookings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mb-4">
+        <a href="@Url.Action("Browse")" class="btn btn-primary btn-lg">
+            <i class="bi bi-search"></i> Explore Properties
+        </a>
+        <a href="@Url.Action("MyBookings")" class="btn btn-info btn-lg">
+            <i class="bi bi-calendar-check"></i> My Bookings
+        </a>
+    </div>
+
+    <!-- Recent Bookings -->
+    <h3 class="mb-3">Recent Bookings</h3>
+    @if (Model.RecentBookings.Any())
+    {
+        <div class="row">
+            @foreach (var booking in Model.RecentBookings)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        @if (!string.IsNullOrEmpty(booking.PropertyThumbnail))
+                        {
+                            <img src="@booking.PropertyThumbnail" class="card-img-top" alt="@booking.PropertyTitle" style="height: 150px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
+                                <i class="bi bi-image" style="font-size: 2rem; color: #ccc;"></i>
+                            </div>
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@booking.PropertyTitle</h5>
+                            <p class="card-text text-muted">@booking.HostName</p>
+
+                            <div class="mb-2">
+                                <small><strong>Check-in:</strong> @booking.CheckInDate.ToString("MMM dd, yyyy")</small><br/>
+                                <small><strong>Check-out:</strong> @booking.CheckOutDate.ToString("MMM dd, yyyy")</small>
+                            </div>
+
+                            <div class="mb-2">
+                                @switch(booking.Status)
+                                {
+                                    case BookingStatus.Pending:
+                                        <span class="badge bg-warning">Pending</span>
+                                        break;
+                                    case BookingStatus.Approved:
+                                        <span class="badge bg-success">Approved</span>
+                                        break;
+                                    case BookingStatus.Rejected:
+                                        <span class="badge bg-danger">Rejected</span>
+                                        break;
+                                }
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <a href="@Url.Action("MyBookings")" class="btn btn-sm btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h5>No bookings yet</h5>
+            <p class="mb-3">Start exploring properties and book your next adventure!</p>
+            <a href="@Url.Action("Browse")" class="btn btn-primary btn-lg">Browse Properties</a>
+        </div>
+    }
+</div>

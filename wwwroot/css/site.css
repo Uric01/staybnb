@@ -1,0 +1,130 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+/* Clean Search Pill */
+.search-pill {
+    max-width: 850px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 100px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease;
+    margin-top: 1rem;
+}
+.search-pill:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+.search-section {
+    padding: 10px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.search-section:hover {
+    background-color: #ebebeb;
+}
+.search-divider {
+    width: 1px;
+    height: 32px;
+    background-color: #dddddd;
+}
+.search-input {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 0.9rem;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.search-btn {
+    background-color: #ff385c;
+    color: white;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: background 0.2s;
+}
+.search-btn:hover {
+    background-color: #d90b3e;
+}
+
+/* Category Strip */
+.category-strip::-webkit-scrollbar {
+    display: none;
+}
+.category-item {
+    color: #717171;
+    text-decoration: none;
+    opacity: 0.8;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    min-width: max-content;
+}
+.category-item:hover, .category-item.active {
+    color: #000;
+    opacity: 1;
+    border-bottom: 2px solid #000;
+}
+
+/* Property Cards */
+.property-img {
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 16px;
+}
+.heart-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: rgba(0,0,0,0.5);
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    transition: transform 0.1s;
+}
+.heart-btn:hover {
+    transform: scale(1.1);
+    color: white;
+}
+.guest-favorite {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

@@ -1,0 +1,82 @@
+@model MessageDetailViewModel
+
+@{
+    ViewData["Title"] = $"Chat with {Model.OtherUserName}";
+}
+
+<div class="container-fluid py-5">
+    <div class="row h-100">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <!-- Header -->
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">@Model.OtherUserName</h5>
+                        <small>@Model.OtherUserEmail</small>
+                    </div>
+                    <a href="@Url.Action("Inbox")" class="btn btn-light btn-sm">Back to Inbox</a>
+                </div>
+
+                <!-- Messages -->
+                <div class="card-body" style="height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+                    @if (Model.Messages.Any())
+                    {
+                        @foreach (var message in Model.Messages)
+                        {
+                            <div class="d-flex mb-3 @(message.IsFromCurrentUser ? "justify-content-end" : "justify-content-start")">
+                                <div class="@(message.IsFromCurrentUser ? "bg-primary text-white" : "bg-light text-dark") rounded-3 p-3" style="max-width: 70%;">
+                                    <p class="mb-1">@message.Content</p>
+                                    <small class="@(message.IsFromCurrentUser ? "text-white-50" : "text-muted")">
+                                        @message.SentAt.ToString("MMM dd, HH:mm")
+                                        @if (!message.IsFromCurrentUser && !message.IsRead)
+                                        {
+                                            <span class="badge bg-danger ms-2">New</span>
+                                        }
+                                    </small>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-5">
+                            <p>No messages yet. Start the conversation!</p>
+                        </div>
+                    }
+                </div>
+
+                <!-- Message Input -->
+                <div class="card-footer bg-light">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show mb-3">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form method="post" asp-action="SendMessage" class="d-flex gap-2">
+                        <input type="hidden" name="recipientId" value="@Model.OtherUserId" />
+                        <input type="text" 
+                               class="form-control" 
+                               name="content" 
+                               placeholder="Type your message..." 
+                               required 
+                               autofocus />
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send"></i> Send
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Auto-scroll to bottom
+    document.addEventListener('DOMContentLoaded', function() {
+        const messageBody = document.querySelector('.card-body');
+        messageBody.scrollTop = messageBody.scrollHeight;
+    });
+</script>

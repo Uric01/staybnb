@@ -1,0 +1,75 @@
+@model List<HostApplicationListItemViewModel>
+
+@{
+    ViewData["Title"] = "Review Applications";
+}
+
+<div class="container-fluid py-5">
+    <h1 class="mb-4">Host Applications</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Property</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Applied On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var app in Model.OrderByDescending(a => a.AppliedAt))
+                    {
+                        <tr>
+                            <td>
+                                <strong>@app.ApplicantName</strong><br/>
+                                <small class="text-muted">@app.ApplicantEmail</small>
+                            </td>
+                            <td>@app.PropertyTitle</td>
+                            <td>@app.PropertyCity</td>
+                            <td>
+                                @switch(app.Status)
+                                {
+                                    case ApplicationStatus.Pending:
+                                        <span class="badge bg-warning">Pending</span>
+                                        break;
+                                    case ApplicationStatus.Approved:
+                                        <span class="badge bg-success">Approved</span>
+                                        break;
+                                    case ApplicationStatus.Rejected:
+                                        <span class="badge bg-danger">Rejected</span>
+                                        break;
+                                }
+                            </td>
+                            <td>@app.AppliedAt.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                <a href="@Url.Action("ApplicationDetail", new { id = app.Id })" class="btn btn-sm btn-primary">
+                                    Review
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h5>No applications to review</h5>
+            <p>All applications have been reviewed.</p>
+        </div>
+    }
+</div>

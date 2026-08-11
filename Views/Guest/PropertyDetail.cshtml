@@ -1,0 +1,144 @@
+@model PropertyDetailViewModel
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <!-- Image Gallery -->
+            <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @if (Model.ImageUrls.Any())
+                    {
+                        @foreach (var (image, index) in Model.ImageUrls.Select((img, idx) => (img, idx)))
+                        {
+                            <div class="carousel-item @(index == 0 ? "active" : "")">
+                                <img src="@image" class="d-block w-100" alt="@Model.Title" style="height: 400px; object-fit: cover;">
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="carousel-item active">
+                            <div class="d-flex align-items-center justify-content-center bg-light" style="height: 400px;">
+                                <i class="bi bi-image" style="font-size: 4rem; color: #ccc;"></i>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if (Model.ImageUrls.Count > 1)
+                {
+                    <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                }
+            </div>
+
+            <!-- Property Info -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>@Model.Title</h2>
+                    <p class="text-muted mb-3">@Model.Address, @Model.City</p>
+
+                    <div class="mb-3">
+                        <span class="badge bg-info">@Model.PropertyType</span>
+                        <span class="badge bg-secondary">Up to @Model.MaxGuests guests</span>
+                    </div>
+
+                    <h5 class="mt-4 mb-3">About this property</h5>
+                    <p>@Model.Description</p>
+
+                    @if (Model.Amenities.Any())
+                    {
+                        <h5 class="mt-4 mb-3">Amenities</h5>
+                        <div>
+                            @foreach (var amenity in Model.Amenities)
+                            {
+                                <span class="badge bg-light text-dark me-2 mb-2">@amenity</span>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Reviews -->
+            @if (Model.Reviews.Any())
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Guest Reviews (@Model.Reviews.Count)</h5>
+                        @foreach (var review in Model.Reviews.OrderByDescending(r => r.CreatedAt))
+                        {
+                            <div class="mb-3 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <strong>@review.GuestName</strong>
+                                        <div>
+                                            @for (int i = 0; i < review.Rating; i++)
+                                            {
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            }
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">@review.CreatedAt.ToString("MMM dd, yyyy")</small>
+                                </div>
+                                <p class="mt-2">@review.Comment</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Booking Card (Sticky) -->
+        <div class="col-md-4">
+            <div class="card sticky-top" style="top: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title">R @Model.PricePerNight <small class="text-muted">/night</small></h5>
+
+                    <div class="my-3">
+                        <small class="text-muted d-block">Cleaning fee: R @Model.CleaningFee</small>
+                        <small class="text-muted d-block">Service fee: R @Model.ServiceFee</small>
+                    </div>
+
+                    <div class="card p-3 mb-3 bg-light">
+                        <h6>Hosted by @Model.HostName</h6>
+                        @if (!string.IsNullOrEmpty(Model.HostEmail))
+                        {
+                            <small class="text-muted">@Model.HostEmail</small>
+                        }
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        
+                       @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Guest"))
+                        {
+                            <a href="/Guest/Book?propertyId=@Model.Id" class="btn btn-success btn-lg">
+                                <i class="bi bi-calendar-check"></i> Book Now
+                            </a>
+                        }
+                        else if (User.Identity?.IsAuthenticated == false)
+                        {
+                            <a href="/Account/Login?returnUrl=@Url.Action("Book", "Guest", new { propertyId = Model.Id })" class="btn btn-outline-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right"></i> Log in to Book
+                            </a>
+                        }
+                        else
+                        {
+                            <p class="text-muted mt-3">Booking is only available for guests.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <a href="/Messaging/Conversation?otherUserId=@Model.HostId" class="btn btn-outline-primary">
+                <i class="bi bi-chat-dots"></i> Contact Host
+            </a>
+        </div>
+    </div>
+</div>

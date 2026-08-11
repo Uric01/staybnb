@@ -1,0 +1,127 @@
+@model CreateHostApplicationViewModel
+
+@{
+    ViewData["Title"] = "Create Property";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4">List Your Property</h2>
+
+            @if (!string.IsNullOrEmpty(Model.ValidationMessage))
+            {
+                <div class="alert alert-danger alert-dismissible fade show">
+                    @Model.ValidationMessage
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <form method="post" enctype="multipart/form-data" asp-antiforgery="true">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Basic Info -->
+                        <h5 class="card-title mb-3">Property Information</h5>
+
+                        <div class="mb-3">
+                            <label for="Title" class="form-label">Property Title *</label>
+                            <input type="text" class="form-control" id="Title" name="Title" 
+                                   value="@Model.Title" required placeholder="e.g., Cozy Apartment in Downtown">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Description" class="form-label">Description *</label>
+                            <textarea class="form-control" id="Description" name="Description" 
+                                      rows="4" required placeholder="Describe your property features, amenities, etc.">@Model.Description</textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Address" class="form-label">Street Address *</label>
+                                <input type="text" class="form-control" id="Address" name="Address" 
+                                       value="@Model.Address" required placeholder="123 Main St">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="City" class="form-label">City *</label>
+                                <input type="text" class="form-control" id="City" name="City" 
+                                       value="@Model.City" required placeholder="New York">
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Property Details -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="PropertyType" class="form-label">Property Type *</label>
+                                <select class="form-control" id="PropertyType" name="PropertyType" required>
+                                    <option value="">-- Select Type --</option>
+                                    <option value="Apartment">Apartment</option>
+                                    <option value="House">House</option>
+                                    <option value="Condo">Condo</option>
+                                    <option value="Villa">Villa</option>
+                                    <option value="Cottage">Cottage</option>
+                                    <option value="Studio">Studio</option>
+                                </select>
+                                <span asp-validation-for="PropertyType" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="MaxGuests" class="form-label">Max Guests *</label>
+                                <input type="number" class="form-control" id="MaxGuests" name="MaxGuests" 
+                                       value="@Model.MaxGuests" min="1" required>
+                                <span asp-validation-for="MaxGuests" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Pricing -->
+                        <h5 class="card-title mt-4 mb-3">Pricing</h5>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="PricePerNight" class="form-label">Price per Night (R) *</label>
+                                <input type="number" class="form-control" id="PricePerNight" name="PricePerNight" 
+                                       value="@Model.PricePerNight" min="0" step="0.01" required>
+                                <span asp-validation-for="PricePerNight" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="CleaningFee" class="form-label">Cleaning Fee (R)</label>
+                                <input type="number" class="form-control" id="CleaningFee" name="CleaningFee" 
+                                       value="@Model.CleaningFee" min="0" step="0.01">
+                                <span asp-validation-for="CleaningFee" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ServiceFee" class="form-label">Service Fee (R)</label>
+                                <input type="number" class="form-control" id="ServiceFee" name="ServiceFee" 
+                                       value="@Model.ServiceFee" min="0" step="0.01">
+                                <span asp-validation-for="ServiceFee" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Images -->
+                        <h5 class="card-title mt-4 mb-3">Property Images *</h5>
+                        <div class="mb-3">
+                            <label for="PropertyImages" class="form-label">Upload at least 1 photo (max 5MB each)</label>
+                            <input type="file" class="form-control" id="PropertyImages" name="PropertyImages" 
+                                   multiple accept="image/*" required>
+                            <small class="text-muted">Drag and drop images or click to select. Supported formats: JPG, PNG, GIF</small>
+                            <span asp-validation-for="PropertyImages" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Create Property</button>
+                            <a href="@Url.Action("Dashboard")" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="alert alert-info mt-4">
+                <strong>Note:</strong> Your property will be created in <strong>Inactive</strong> status. You'll need to submit a host application and get it approved by an admin before guests can book it.
+            </div>
+        </div>
+    </div>
+</div>

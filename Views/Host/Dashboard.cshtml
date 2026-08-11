@@ -1,0 +1,122 @@
+@model HostDashboardViewModel
+
+<div class="container py-5">
+    <h1 class="mb-4">Host Dashboard</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Dashboard Stats -->
+    <div class="row mb-5">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Properties</h5>
+                    <p class="display-4">@Model.TotalProperties</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Active Properties</h5>
+                    <p class="display-4">@Model.ActiveProperties</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Bookings</h5>
+                    <p class="display-4">@Model.PendingBookings</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Earnings</h5>
+                    <p class="display-4">R @Model.TotalEarnings.ToString("N2")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mb-4">
+        <a href="@Url.Action("CreateProperty")" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle"></i> List New Property
+        </a>
+        <a href="@Url.Action("Properties")" class="btn btn-info btn-lg">
+            <i class="bi bi-house"></i> Manage Properties
+        </a>
+        <a href="@Url.Action("Bookings")" class="btn btn-warning btn-lg">
+            <i class="bi bi-calendar-check"></i> Review Bookings
+        </a>
+    </div>
+
+    <!-- Recent Properties -->
+    <h3 class="mb-3">Your Properties</h3>
+    @if (Model.Properties.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Property Name</th>
+                        <th>Location</th>
+                        <th>Price/Night</th>
+                        <th>Status</th>
+                        <th>Bookings</th>
+                        <th>Pending</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var property in Model.Properties.Take(5))
+                    {
+                        <tr>
+                            <td>@property.Title</td>
+                            <td>@property.City</td>
+                            <td>R @property.PricePerNight.ToString("N2")</td>
+                            <td>
+                                @if (property.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Inactive</span>
+                                }
+                            </td>
+                            <td>@property.BookingCount</td>
+                            <td>@property.PendingBookingsCount</td>
+                            <td>
+                                <a href="@Url.Action("EditProperty", new { id = property.Id })" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="@Url.Action("ConfigureCheckIn", new { propertyId = property.Id })" class="btn btn-sm btn-info">Check-In</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            You haven't created any properties yet. <a href="@Url.Action("CreateProperty")">Create your first property</a>.
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Host Dashboard</h2>
+        <p>Coming soon - Manage your properties and bookings!</p>
+    </div>
+</div>

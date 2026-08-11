@@ -1,0 +1,54 @@
+@model CheckInProcessViewModel
+
+@{
+    ViewData["Title"] = "Configure Check-In Process";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4">Configure Check-In Process</h2>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted">Define the check-in rules and required documents for your property. Guests will need to comply with these requirements before completing their check-in.</p>
+
+                    <form method="post" asp-antiforgery="true">
+                        <input type="hidden" name="propertyId" value="@Model.PropertyId" />
+
+                        <div class="mb-3">
+                            <label for="Rules" class="form-label">Check-In Rules</label>
+                            <textarea class="form-control" id="Rules" name="Rules" rows="5" 
+                                      placeholder="e.g., Early check-in available by prior arrangement&#10;Late check-out by request&#10;Quiet hours: 10 PM - 8 AM&#10;No smoking inside&#10;Maximum 2 guests per bedroom">@Model.Rules</textarea>
+                            <small class="text-muted">Enter one rule per line</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="RequiredDocuments" class="form-label">Required Documents</label>
+                            <textarea class="form-control" id="RequiredDocuments" name="RequiredDocuments" rows="5"
+                                      placeholder="e.g., Valid ID or Passport&#10;Proof of Address (optional)&#10;Travel Insurance Certificate (optional)">@Model.RequiredDocuments</textarea>
+                            <small class="text-muted">Specify documents guests must provide. Enter one per line</small>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Save Check-In Configuration</button>
+                            <a href="@Url.Action("Dashboard")" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>Tip:</strong> Clear and specific rules help reduce misunderstandings and ensure smooth check-ins for your guests.
+            </div>
+        </div>
+    </div>
+</div>

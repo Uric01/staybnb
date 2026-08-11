@@ -1,0 +1,76 @@
+@model NotificationCenterViewModel
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<div class="container-fluid py-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-bell"></i> Notifications
+                        @if (Model.UnreadCount > 0)
+                        {
+                            <span class="badge bg-danger rounded-pill">@Model.UnreadCount</span>
+                        }
+                    </h5>
+                </div>
+
+                <div class="card-body p-0" style="max-height: 600px; overflow-y: auto;">
+                    @if (Model.Notifications.Any())
+                    {
+                        @foreach (var notification in Model.Notifications)
+                        {
+                            <div class="border-bottom p-3 @(notification.IsRead ? "" : "bg-light")">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div style="flex: 1;">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <h6 class="mb-1">@notification.Title</h6>
+                                            @if (!notification.IsRead)
+                                            {
+                                                <span class="badge bg-danger">New</span>
+                                            }
+                                        </div>
+                                        <p class="mb-1 text-muted">@notification.Message</p>
+                                        <small class="text-muted">@notification.CreatedAt.ToString("MMM dd, HH:mm")</small>
+                                    </div>
+                                    @if (!notification.IsRead)
+                                    {
+                                        <button type="button" 
+                                                class="btn btn-sm btn-outline-primary ms-2"
+                                                onclick="markAsRead(@notification.Id)">
+                                            <i class="bi bi-check"></i>
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="p-5 text-center text-muted">
+                            <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                            <p class="mt-2">No notifications</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function markAsRead(notificationId) {
+    fetch('@Url.Action("MarkAsRead", "Notification")', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ notificationId: notificationId })
+    })
+    .then(response => response.ok ? location.reload() : null)
+    .catch(error => console.error('Error:', error));
+}
+</script>

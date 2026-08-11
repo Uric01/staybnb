@@ -1,0 +1,137 @@
+﻿@using System.Security.Claims
+@{
+    var user = User;
+    var hasRole = (System.Func<string, bool>)(role => user.IsInRole(role));
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Staybnb</title>
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+   <header>
+    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom py-3">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+            
+            <a class="navbar-brand d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-houses-fill" style="color: #ff385c; font-size: 2rem;"></i>
+                <span class="fw-bold fs-4" style="color: #ff385c; letter-spacing: -1px;">staybnb</span>
+            </a>
+            
+            <div class="d-none d-md-flex gap-4 fw-medium text-dark">
+                <a href="#" class="text-dark text-decoration-none border-bottom border-2 border-dark pb-1">Stays</a>
+                <a href="/Guest/Browse" class="text-muted text-decoration-none">Experiences</a>
+            </div>
+            
+            <div class="d-flex align-items-center gap-3">
+                <a href="/Host/CreateProperty" class="text-dark text-decoration-none fw-medium d-none d-sm-block">Staybnb your home</a>
+                <i class="bi bi-globe fs-5"></i>
+                
+                <div class="dropdown">
+                    <button class="btn btn-light rounded-pill border d-flex align-items-center gap-2 py-1 px-2 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-list fs-5"></i>
+                        <i class="bi bi-person-circle fs-3 text-secondary"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end rounded-4 shadow border-0 mt-2">
+                        
+                        @* CHECK IF THE USER IS LOGGED IN *@
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li><span class="dropdown-item-text text-muted small">Logged in as @User.Identity.Name</span></li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            @* SHOW DASHBOARDS BASED ON ROLE *@
+                            @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                            {
+                                <li><a class="dropdown-item fw-bold" href="/Admin/Dashboard">Admin Dashboard</a></li>
+                            }
+                            else if (User.IsInRole("Host"))
+                            {
+                                <li><a class="dropdown-item fw-bold" href="/Host/Dashboard">Host Dashboard</a></li>
+                            }
+                            else if (User.IsInRole("Guest"))
+                            {
+                                <li><a class="dropdown-item fw-bold" href="/Guest/Dashboard">My Bookings</a></li>
+                                
+                                @* This is the Host Application Link! *@
+                                <li><a class="dropdown-item" href="/Host/CreateProperty">Staybnb your home</a></li>
+                            }
+
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Account/Profile">My Profile</a></li>
+                            <li>
+                                @* LOGOUT BUTTON *@
+                                <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="dropdown-item text-danger border-0 bg-transparent w-100 text-start">Log out</button>
+                                </form>
+                            </li>
+                            <a href="/Notification/NotificationCenter" class="text-dark position-relative me-3">
+                            <i class="bi bi-bell fs-5"></i>
+                            <span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;"></span>
+                            </a>
+                            <a href="/Messaging/Inbox" class="text-dark position-relative me-2">
+                                <i class="bi bi-chat-dots fs-5"></i>
+                                <span id="messageBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display:none;"></span>
+                        </a>
+                        }
+                        else
+                        {
+                            @* WHAT ANONYMOUS USERS SEE *@
+                            <li><a class="dropdown-item fw-bold" href="/Account/Register">Sign up</a></li>
+                            <li><a class="dropdown-item" href="/Account/Login">Log in</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Host/CreateProperty">Staybnb your home</a></li>
+                            <li><a class="dropdown-item" href="#">Help Center</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+</header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - Staybnb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <text>
+        fetch('/Notification/GetUnreadCount')
+            .then(res => res.json())
+            .then(data => {
+                if (data.unreadCount > 0) {
+                    const badge = document.getElementById('notificationBadge');
+                    badge.textContent = data.unreadCount;
+                    badge.style.display = 'inline-block';
+                }
+            });
+        // You can also add an endpoint for message unread count, or simply not show a badge for now.
+        </text>
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+@model CreateBookingViewModel
+
+@{
+    ViewData["Title"] = "Book " + Model.PropertyTitle;
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4">Book: @Model.PropertyTitle</h2>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach (var modelState in ViewData.ModelState.Values)
+                        {
+                            @foreach (var error in modelState.Errors)
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            }
+
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Booking Details</h5>
+
+                            <form method="post" asp-action="SubmitBooking" asp-antiforgery="true">
+                                <input type="hidden" asp-for="PropertyId" />
+                                    <input type="hidden" asp-for="MaxGuests" />
+                                    <input type="hidden" asp-for="PricePerNight" />
+                                    <input type="hidden" asp-for="CleaningFee" />
+                                    <input type="hidden" asp-for="ServiceFee" />
+                                    <input type="hidden" asp-for="PropertyTitle" />
+                                <input type="hidden" name="propertyId" value="@Model.PropertyId" />
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="CheckInDate" class="form-label">Check-in Date *</label>
+                                        <input type="date" class="form-control" id="CheckInDate" name="CheckInDate" 
+                                               value="@Model.CheckInDate.ToString("yyyy-MM-dd")" required 
+                                               min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="CheckOutDate" class="form-label">Check-out Date *</label>
+                                        <input type="date" class="form-control" id="CheckOutDate" name="CheckOutDate" 
+                                               value="@Model.CheckOutDate.ToString("yyyy-MM-dd")" required
+                                               min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
+                                               onchange="calculatePrice()">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="NumberOfGuests" class="form-label">Number of Guests *</label>
+                                    <input type="number" class="form-control" id="NumberOfGuests" name="NumberOfGuests" 
+                                           value="@Model.NumberOfGuests" min="1" max="@Model.MaxGuests" required
+                                           onchange="calculatePrice()">
+                                    <small class="text-muted">Maximum: @Model.MaxGuests guests</small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Special Requests (Optional)</label>
+                                    <textarea class="form-control" rows="3" placeholder="Let the host know if you have any special requests..."></textarea>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">Request Booking</button>
+                                    <a href="@Url.Action("PropertyDetail", new { id = Model.PropertyId })" class="btn btn-outline-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card sticky-top" style="top: 20px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Price Breakdown</h5>
+
+                            <div class="price-breakdown">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>R @Model.PricePerNight × @Model.NightsCount nights</span>
+                                    <strong id="subtotal">R @((Model.PricePerNight * Model.NightsCount).ToString("F2"))</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Cleaning fee</span>
+                                    <span>R @Model.CleaningFee.ToString("F2")</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Service fee</span>
+                                    <span>R @Model.ServiceFee.ToString("F2")</span>
+                                </div>
+
+                                <hr/>
+
+                                <div class="d-flex justify-content-between h5">
+                                    <span>Total</span>
+                                    <strong id="total">R @Model.TotalPrice.ToString("F2")</strong>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info mt-3">
+                                <small>This is a booking request. The host will review and approve or reject your request.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function calculatePrice() {
+    const checkIn = new Date(document.getElementById('CheckInDate').value);
+    const checkOut = new Date(document.getElementById('CheckOutDate').value);
+    const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+    const pricePerNight = @Model.PricePerNight;
+    const cleaningFee = @Model.CleaningFee;
+    const serviceFee = @Model.ServiceFee;
+
+    if (nights > 0) {
+        const subtotal = pricePerNight * nights;
+        const total = subtotal + cleaningFee + serviceFee;
+        
+        document.getElementById('subtotal').textContent = 'R ' + subtotal.toFixed(2);
+        document.getElementById('total').textContent = 'R ' + total.toFixed(2);
+    }
+}
+</script>

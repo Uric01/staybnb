@@ -1,0 +1,76 @@
+@model List<HostApplication>
+
+@{
+    ViewData["Title"] = "My Applications";
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">My Host Applications</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <div class="row">
+            @foreach (var app in Model)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@app.Property.Title</h5>
+                            <p class="card-text text-muted">@app.Property.City, @app.Property.PropertyType</p>
+
+                            <div class="mb-3">
+                                @switch(app.Status)
+                                {
+                                    case ApplicationStatus.Pending:
+                                        <span class="badge bg-warning">Pending Review</span>
+                                        <p class="text-muted mt-2"><small>Submitted on @app.AppliedAt.ToString("MMM dd, yyyy")</small></p>
+                                        break;
+                                    case ApplicationStatus.Approved:
+                                        <span class="badge bg-success">Approved!</span>
+                                        <p class="text-muted mt-2"><small>Approved on @app.ReviewedAt?.ToString("MMM dd, yyyy")</small></p>
+                                        break;
+                                    case ApplicationStatus.Rejected:
+                                        <span class="badge bg-danger">Rejected</span>
+                                        <p class="text-muted mt-2"><small>Reviewed on @app.ReviewedAt?.ToString("MMM dd, yyyy")</small></p>
+                                        break;
+                                }
+                            </div>
+
+                            <div class="card-footer bg-white p-0">
+                                <a href="@Url.Action("EditProperty", "Host", new { id = app.PropertyId })" class="btn btn-sm btn-primary">
+                                    View Property
+                                </a>
+                                @if (app.Status == ApplicationStatus.Rejected)
+                                {
+                                    <a href="@Url.Action("EditProperty", "Host", new { id = app.PropertyId })" class="btn btn-sm btn-warning">
+                                        Update & Resubmit
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h5>No applications yet</h5>
+            <p class="mb-3">Create a property and submit an application to become a host</p>
+            <a href="@Url.Action("Apply")" class="btn btn-primary">Start Application</a>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a href="@Url.Action("Dashboard", "Guest")" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>

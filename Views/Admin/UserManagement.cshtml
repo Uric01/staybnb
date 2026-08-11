@@ -1,0 +1,75 @@
+@model List<UserManagementViewModel>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="container-fluid py-5">
+    <h1 class="mb-4">User Management (SuperAdmin Only)</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="alert alert-info mb-4">
+        <strong>SuperAdmin Privileges:</strong> You can promote Guests to Admin role here. Only SuperAdmins can access this page.
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Roles</th>
+                        <th>Member Since</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.OrderByDescending(u => u.CreatedAt))
+                    {
+                        <tr>
+                            <td>
+                                <strong>@user.FirstName @user.LastName</strong>
+                            </td>
+                            <td>@user.Email</td>
+                            <td>
+                                <small class="text-muted">@user.UserName</small>
+                            </td>
+                            <td>
+                                @foreach (var role in user.Roles)
+                                {
+                                    <span class="badge bg-info">@role</span>
+                                }
+                            </td>
+                            <td>@user.CreatedAt.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                <form method="post" asp-action="PromoteToAdmin" style="display: inline;">
+                                    <input type="hidden" name="guestId" value="@user.UserId" />
+                                    <button type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Promote this user to Admin?')">
+                                        Promote to Admin
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h5>No Guests to manage</h5>
+            <p>All Guests have been promoted to Admin or Host.</p>
+        </div>
+    }
+</div>

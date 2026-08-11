@@ -1,0 +1,115 @@
+@model PropertyFilterViewModel
+
+@{
+    ViewData["Title"] = "Browse Properties";
+}
+
+<div class="container-fluid py-5">
+    <h1 class="mb-4">Explore Properties</h1>
+
+    <!-- Filter Section -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get" asp-action="Browse" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="City" class="form-label">City</label>
+                            <select class="form-control" id="City" name="city">
+                                <option value="">-- All Cities --</option>
+                                @foreach (var city in Model.AvailableCities)
+                                {
+                                    <option value="@city" selected="@(Model.City == city)">@city</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="PropertyType" class="form-label">Property Type</label>
+                            <select class="form-control" id="PropertyType" name="propertyType">
+                                <option value="">-- All Types --</option>
+                                @foreach (var type in Model.AvailablePropertyTypes)
+                                {
+                                    <option value="@type" selected="@(Model.PropertyType == type)">@type</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Properties Grid -->
+    @if (Model.Properties.Any())
+    {
+        <div class="row g-4">
+            @foreach (var property in Model.Properties)
+            {
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(property.ThumbnailUrl))
+                        {
+                            <img src="@property.ThumbnailUrl" class="card-img-top" alt="@property.Title" style="height: 200px; object-fit: cover; cursor: pointer;" data-property-id="@property.Id" onclick="window.location='@Url.Action("PropertyDetail", new { id = property.Id })'">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px; cursor: pointer;" onclick="window.location='@Url.Action("PropertyDetail", new { id = property.Id })'">
+                                <i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>
+                            </div>
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@property.Title</h5>
+                            <p class="card-text text-muted mb-2">
+                                <i class="bi bi-geo-alt"></i> @property.City
+                            </p>
+
+                            <div class="mb-2">
+                                @if (property.AverageRating > 0)
+                                {
+                                    <span class="badge bg-warning">
+                                        <i class="bi bi-star-fill"></i> @property.AverageRating.ToString("F1")
+                                    </span>
+                                    <small class="text-muted">(@property.ReviewCount reviews)</small>
+                                }
+                                else
+                                {
+                                    <small class="text-muted">No reviews yet</small>
+                                }
+                            </div>
+
+                            <p class="card-text">
+                                <strong class="h5">R{@property.PricePerNight}</strong> <small>per night</small>
+                            </p>
+
+                            <div class="d-grid gap-2">
+                                <a href="@Url.Action("PropertyDetail", new { id = property.Id })" class="btn btn-primary">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <h5>No properties found</h5>
+            <p>Try adjusting your filters or check back later for new listings.</p>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Browse Properties</h2>
+        <p>Coming soon - Browse and book your next stay!</p>
+    </div>
+</div>
